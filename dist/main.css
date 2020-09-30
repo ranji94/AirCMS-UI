@@ -1,0 +1,10 @@
+@import url(https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Open+Sans+Condensed:wght@300&family=Roboto:wght@100;400;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Open+Sans+Condensed:wght@300&family=Roboto:wght@100;400;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Open+Sans+Condensed:wght@300&family=Roboto:wght@100;400;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Open+Sans+Condensed:wght@300&family=Roboto:wght@100;400;700&display=swap);
+html{width:100%;height:100%}body{width:100%;height:100%;margin:0 auto;color:#0C120C;background-color:#ECEBF3;font-family:'Open Sans Condensed', sans-serif}html{scroll-behavior:smooth}.main__flex-container___KRxsm{user-select:none;display:flex;flex-flow:row wrap;justify-content:space-around}.main__flex-item___39GIU{flex:auto;text-align:center;padding-top:10px}.main__full-size-item___3XPoo{flex:100%}
+
+html{width:100%;height:100%}body{width:100%;height:100%;margin:0 auto;color:#0C120C;background-color:#ECEBF3;font-family:'Open Sans Condensed', sans-serif}html{scroll-behavior:smooth}.header__flex-container___2q4Om{user-select:none;display:flex;flex-flow:row wrap;justify-content:space-around}.header__flex-item___3ggyI{flex:auto;text-align:center;padding-top:10px}.header__full-size-item___3lDTN{flex:100%}.header__header-container___UW_ou{font-family:'Dosis', sans-serif;display:flex;justify-content:center;align-items:center;height:20vh;color:#C7D6D5;font-size:3rem;background-color:#0C120C;text-align:center;clip-path:polygon(0 0, 100% 0, 100% 70%, 0% 100%)}.header__header-item___xBsgE{flex:100%}.header__button-container___3DcvS{margin-right:40%;margin-left:40%;flex:100%}
+
+.loading-indicator__loader___1wh-7{border:16px solid #C7D6D5;border-top:16px solid #C20114;border-radius:50%;width:120px;height:120px;animation:loading-indicator__spin___misPI 2s linear infinite}@keyframes loading-indicator__spin___misPI{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+

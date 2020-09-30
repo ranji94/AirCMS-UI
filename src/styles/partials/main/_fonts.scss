@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Open+Sans+Condensed:wght@300&family=Roboto:wght@100;400;700&display=swap');
+
+@mixin header-text {
+    font-family: 'Dosis', sans-serif;
+}
+
+@mixin default-text {
+    font-family: 'Open Sans Condensed', sans-serif;
+}

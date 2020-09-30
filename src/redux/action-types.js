@@ -1,0 +1,1 @@
+export const SET_LANGCODE = 'SET_LANGCODE'

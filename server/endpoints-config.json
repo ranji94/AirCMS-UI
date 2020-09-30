@@ -1,0 +1,10 @@
+{
+    "endpoints": [
+        "/ftp/download",
+        "/ftp/upload",
+        "/ftp/connect",
+        "/ftp/saveCredentials",
+        "/ftp/listDirectories",
+        "/health"
+    ]
+}
