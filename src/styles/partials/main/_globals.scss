@@ -1,0 +1,16 @@
+.flex-container {
+    user-select: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.flex-item {
+    flex: auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.full-size-item {
+    flex: 100%;
+}

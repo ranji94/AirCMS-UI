@@ -1,0 +1,22 @@
+@import '../../styles/main.scss';
+
+.header-container {
+    @include header-text;
+    @include vertical-align;
+    height: 20vh;
+    color: $color-accent-second;
+    font-size: 3rem;
+    background-color: $color-lead;
+    text-align: center;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
+}
+
+.header-item {
+    flex: 100%;
+}
+
+.button-container {
+    margin-right: 40%;
+    margin-left: 40%;
+    flex: 100%;
+}

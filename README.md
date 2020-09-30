@@ -1,2 +1,2 @@
 # AirCMS-UI
-AirCMS User Interface
+User Interface of AirCMS (Content Management System).
