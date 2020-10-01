@@ -69,8 +69,6 @@ export const NewsEditor = () => {
     }
 
     const removeNews = () => {
-        // const removeItem = storedNews.find(({newsId}) => newsId === newsToRemove)
-        // const removeItemIndex = storedNews.findIndex(n => n.newsId === newsToRemove)
         dispatch(deleteNews(newsToRemove))
         setDialogOpen(false)
     }

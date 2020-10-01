@@ -4,7 +4,7 @@ import {
     SET_SELECTED_FTP_CREDENTIALS,
     SET_FTP_CONNECTION_INFO,
     SET_NEWS,
-    ADD_NEWS } from './action-types'
+    ADD_NEWS, DELETE_NEWS } from './action-types'
 
 export const setLangCode = (content) => {
     return {
@@ -60,9 +60,7 @@ export const addNews = (content) => {
 
 export const deleteNews = (content) => {
     return {
-        type: ADD_NEWS,
-        payload: {
-            content
-        }
+        type: DELETE_NEWS,
+        payload: content
     }
 }
