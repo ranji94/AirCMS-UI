@@ -1,0 +1,63 @@
+@import '../../../styles/main.scss';
+
+.connections-container {
+    text-align: center;
+
+    margin: {
+        top: 2%;
+        left: 15%;
+        right: 15%;
+    }
+}
+
+.connections-box {
+    background-color: $color-accent-second;
+    padding: 5px 5px 5px 5px;
+    margin: {
+        top: 2%;
+        left: 15%;
+        right: 15%;
+    }
+    display: flex;
+}
+
+.connection-element {
+    flex: 90%;
+    border-radius: 5px 0 0 5px;
+    background-color: $color-lead;
+    color: $color-accent-second;
+    transition: background-color 0.2s;
+    padding: {
+        top: 5%;
+        bottom: 5%;
+    }
+}
+
+.connection-edit {
+    flex: 10%;
+    border-radius: 0 5px 5px 0;
+    background-color: $color-secondary;
+    color: $color-accent-second;
+    transition: backgroud-color 0.2s;
+    padding: {
+        top: 5%;
+        bottom: 5%;
+    }
+}
+
+.connection-edit:hover {
+    background-color: $color-secondary-hover;
+}
+
+.connection-item {
+    font-size: 2rem;
+    font-weight: bold;
+    flex: 100%;
+    display: flex;
+    
+    cursor: pointer;
+}
+
+.connection-element:hover {
+    background-color: $color-lead-hover;
+}

@@ -1,0 +1,64 @@
+@import '../../../styles/main.scss';
+
+.news-container {
+    text-align: center;
+    user-select: none;
+
+    margin: {
+        top: 2%;
+        left: 15%;
+        right: 15%;
+    }
+}
+
+h1 {
+    user-select: none;
+    text-align: center;
+}
+
+.news-item-date {
+    margin: {
+        top: 2%;
+        bottom: 2%;
+    }
+}
+
+.news-item-images {
+    margin: {
+        top: 4%;
+        bottom: 4%;
+    }
+}
+
+.multiline-text-field {
+    text-align: center;
+    margin: {
+        left: 10%;
+        right: 10%;
+    }
+}
+
+.edit-button-container {
+    margin-top: 2%;
+}
+
+.news-item-container {
+    position: relative;
+    border: 2px solid $color-lead;
+    border-radius: 2px;
+    padding: 5px 5px 5px 5px;
+    margin: {
+        top: 2%;
+        bottom: 2%;
+    }
+}
+
+.remove-button {
+    cursor: pointer;
+    color: $color-accent-third;
+    padding: 5px 5px 5px 5px;
+    background-color: $color-secondary;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

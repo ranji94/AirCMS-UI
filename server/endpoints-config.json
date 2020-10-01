@@ -5,6 +5,7 @@
         "/ftp/connect",
         "/ftp/saveCredentials",
         "/ftp/listDirectories",
+        "/ftp/listSavedFTPConnections",
         "/health"
     ]
 }

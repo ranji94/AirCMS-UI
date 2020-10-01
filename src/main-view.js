@@ -1,89 +1,53 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import './styles/main.scss'
-import { AppHeader } from './components/components'
+import {
+  AppHeader,
+  ConnectionPanel,
+  LoadingIndicator,
+  ConnectionsList
+} from './components/components'
 import { fetch } from './operations'
-import { LoadingIndicator } from './components/loadingIndicator/loading-indicator'
+import { setFetchSuccess } from './redux/actions'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 export const MainView = () => {
-  const [connected, setConnected] = useState(false)
-  const [server, setServer] = useState('')
-  const [user, setUser] = useState('')
-  const [news, setNews] = useState([])
-  const [fetchSuccess, setFetchSuccess] = useState(true)
+  const [savedCredentials, setSavedCredentials] = useState([])
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    document.title = 'AirCMS | Webpages panel'
+    document.title = 'AirCMS | Webpages management'
+    listSavedFTPConnections()
   }, [])
 
-  const fetchNews = () => {
-    const downloadOptions = Object.assign({}, {
+  const listSavedFTPConnections = () => {
+    const listOptions = Object.assign({}, {
       method: 'GET',
-      url: 'api/ftp/download'
+      url: 'api/ftp/listSavedFTPConnections'
     })
 
-    setFetchSuccess(false)
+    dispatch(setFetchSuccess(false))
 
-    fetch(downloadOptions).then((response) => {
-      setFetchSuccess(true)
-      setNews(response.data)
-    })
-  }
-
-  const connectFTP = () => {
-    const body = {
-      ftpServer: '',
-      ftpUser: '',
-      password: '',
-      port: 21
-    }
-
-    const connectFTPOptions = Object.assign({}, {
-      method: 'POST',
-      url: 'api/ftp/connect',
-      data: body,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    setFetchSuccess(false)
-
-    fetch(connectFTPOptions).then((response) => {
-      const body = response.data
-      setConnected(body.connected)
-      setUser(body.connectedUser)
-      setServer(body.connectedServer)
-      setFetchSuccess(true)
-    }).catch((error) => {
-      console.log('ERROR CONNECTION FAILED', error)
+    fetch(listOptions).then((response) => {
+      dispatch(setFetchSuccess(true))
+      setSavedCredentials(response.data)
     })
   }
 
   return (<div>
     <AppHeader text={'AirCMS'} />
-
-    <div>
-      Connection data:
-      Status: {connected}
-      Server: {server}
-      User: {user}
-    </div>
-
-    <button onClick={() => connectFTP()}>Connect ag.zgora</button>
-    <button disabled={!connected} onClick={() => fetchNews()}>FETCH NEWS</button>
-
-    <div>
-      NEWS:
-      <ul>
-          {news.map(({ id, description, images, date }) => {
-              return <li>ID: {id} DESCRIPTION: {description} date: {date}</li>
-          })}
-      </ul>
-      {getLoadingIndicator(fetchSuccess)}
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/'>
+          <LoadingIndicator>
+            <ConnectionsList {...{ savedCredentials }} />
+          </LoadingIndicator>
+        </Route>
+        <Route exact path='/connectionPanel'>
+          <ConnectionPanel />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   </div>)
-}
-
-const getLoadingIndicator = (isLoading) => {
-  return isLoading ? <span /> : <LoadingIndicator />
 }

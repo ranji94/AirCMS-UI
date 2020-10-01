@@ -1,4 +1,4 @@
-@import '../../styles/partials/main/variables';
+@import '../../styles/main.scss';
 
 .loader {
     border: 16px solid $color-accent-second;
@@ -13,3 +13,14 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.indicator-container {
+  @include vertical-align;
+  text-align: center;
+
+  margin: {
+      top: 2%;
+      left: 15%;
+      right: 15%;
+  }
+}
