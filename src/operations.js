@@ -1,5 +1,6 @@
 import axios from 'axios';
 import STRINGS from './resources/data/strings.json';
+import { MONTHS } from './constants'
 
 export function loadText(stringCode, ...args) {
     let text = ''
@@ -30,8 +31,15 @@ export function getStringCodeByText(value, resource) {
     return sc
 }
 
-export function getRandomBooleanWithProbability(probability) {
-    return probability > Math.random()
+export function convertToHumanDateRepresentation (dateFieldString) {
+    const dateRegexp = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/
+    const groups = dateFieldString.match(dateRegexp).groups
+    
+    return (cutLessSignificantZero(groups.day) + ' ' + MONTHS[cutLessSignificantZero(groups.month)] + ' ' + groups.year) || '01 January 1970'
+}
+
+export function cutLessSignificantZero (month) {
+    return month.length === 2 && month.substring(0,1) === '0' ? month.substring(1,2) : month
 }
 
 export function fetch (options) {

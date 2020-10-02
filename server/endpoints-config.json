@@ -3,6 +3,7 @@
         "/ftp/download",
         "/ftp/upload",
         "/ftp/connect",
+        "/ftp/disconnect",
         "/ftp/saveCredentials",
         "/ftp/listDirectories",
         "/ftp/listSavedFTPConnections",
