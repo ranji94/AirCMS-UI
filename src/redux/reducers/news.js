@@ -1,4 +1,4 @@
-import { SET_NEWS, ADD_NEWS, DELETE_NEWS } from '../action-types'
+import { SET_NEWS, ADD_NEWS, DELETE_NEWS, REPLACE_NEWS } from '../action-types'
 
 const initialState = {
     news: []
@@ -16,13 +16,23 @@ export default function (state = initialState, action) {
         case ADD_NEWS: {
             return {
                 ...state,
-                news: [...state.news, action.payload]
+                news: [action.payload, ...state.news]
             }
         }
         case DELETE_NEWS: {
             return {
                 ...state,
                 news: state.news.filter(n => n.newsId !== action.payload)
+            }
+        }
+        case REPLACE_NEWS: {
+            const newItem = action.payload
+            
+            return {
+                ...state,
+                news: state.news.map(n => {
+                    return n.newsId === newItem.newsId ? newItem : n
+                })
             }
         }
         default:
