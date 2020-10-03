@@ -3,12 +3,14 @@ const axios = require('axios')
 const bodyParser = require('body-parser')
 const path = require('path')
 const simpleOauth2 = require('simple-oauth2')
+const fs = require('fs')
 const app = express()
 const config = require('./endpoints-config.json')
-const middlewarePort = 9010
 
+const middlewarePort = 9010
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(express.static(__dirname + "/public/images"));
 
 // const credentials = {
 //     client: {
@@ -45,11 +47,11 @@ const prefix = '/api'
 const endpoints = config['endpoints']
 
 for(let i=0;i<endpoints.length;i++) {
-    const path = `${prefix}${endpoints[i]}`
+    const endpointPath = `${prefix}${endpoints[i]}`
 
-    console.log('CREATED ENDPOINT: ', path)
+    console.log('CREATED ENDPOINT: ', endpointPath)
 
-    app.all(path, async function (req, res, next) {
+    app.all(endpointPath, async function (req, res, next) {
         // try {
         //     if (accessToken.expired) {
         //         const result = await oauth2.clientCredentials.getToken(tokenConfig)
@@ -63,24 +65,59 @@ for(let i=0;i<endpoints.length;i++) {
         //     console.error(`Invalid token provided for request ${req.url}`)
         // }
 
+        const isImage = endpointPath.includes('image') ? true : false
+
         const options = {
             port: 8080,
-            url: 'http://localhost:8080' + path,
+            url: 'http://localhost:8080' + endpointPath,
             method: req.method,
             headers: {
-                // 'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 // 'Authorization': `Bearer ${accessToken.token.access_token}`,
                 ...req.headers
             },
-            data: req.body
+            data: req.body,
+            params: req.query,
+            responseType: 'arraybuffer'
         }
 
         await fetch(options).then(
             (response) => {
-                res.send(response.data)
+                if(isImage) {
+                    const sendFileOptions = {
+                        root: path.join(__dirname, 'public/images'),
+                        dotfiles: 'deny',
+                        headers: {
+                            'x-timestamp': Date.now(),
+                            'x-sent': true,
+                            'Content-Type': 'image/jpeg'
+                        }
+                    }
+                    const fileName = req.query.fileName
+                    const absoluteFilePath = path.join(__dirname, 'public/images') + '/' + fileName
+                    console.log(absoluteFilePath)
+                    const imageFile = Buffer.from(response.data, 'binary').toString('base64')
+
+                    fs.writeFileSync(absoluteFilePath, imageFile)
+
+                    res.type('jpeg')
+                    res.contentType('image/jpeg')
+                    res.sendFile(fileName, sendFileOptions, function(err) {
+                        if (err) {
+                            next(err)
+                          } else {
+                            console.log('Sent:', fileName)
+                          }
+                    })
+                }
+                else {
+                    res.send(response.data)
+                }
             },
             (error) => {
-                res.status(error.response.status || 500).send({ message: error.response.data || [] })
+                let errorStatus = typeof error.response === 'undefined' ? 500 : error.response.status                
+
+                res.status(errorStatus).send({ message: error.response.data || [] })
                 if(typeof error.response.status === 'undefined') {
                     console.log('Cannot get response status')
                 }
@@ -88,10 +125,6 @@ for(let i=0;i<endpoints.length;i++) {
         ).catch()
     })
 }
-
-app.get('/api/health', (req, res) => {
-    res.send('Middleware is alive!')
-})
 
 function fetch (options) {
     return new Promise((resolve, reject) => {
@@ -104,6 +137,10 @@ function fetch (options) {
         })
     })
 }
+
+app.get('/api/health', (req, res) => {
+    res.send('Middleware is alive!')
+})
 
 app.listen(middlewarePort, () => {
     console.log('Middleware is running on port: ', middlewarePort)

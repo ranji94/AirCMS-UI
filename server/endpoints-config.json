@@ -1,6 +1,8 @@
 {
     "endpoints": [
         "/ftp/download",
+        "/ftp/download/imagesDir",
+        "/ftp/download/image",
         "/ftp/upload",
         "/ftp/connect",
         "/ftp/disconnect",

@@ -10,30 +10,26 @@ import {
 import { fetch } from './operations'
 import { setFetchSuccess } from './redux/actions'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { API } from './constants'
 
 export const MainView = () => {
+  const dispatch = useDispatch()
+
   const [savedCredentials, setSavedCredentials] = useState([])
 
-  const dispatch = useDispatch()
+  const listSavedFTPConnections = () => {  
+      dispatch(setFetchSuccess(false))
+  
+      fetch(API.LISTFTPCONN).then((response) => {
+        dispatch(setFetchSuccess(true))
+        setSavedCredentials(response.data)
+      })
+    }
 
   useEffect(() => {
     document.title = 'AirCMS | Webpages management'
     listSavedFTPConnections()
   }, [])
-
-  const listSavedFTPConnections = () => {
-    const listOptions = Object.assign({}, {
-      method: 'GET',
-      url: 'api/ftp/listSavedFTPConnections'
-    })
-
-    dispatch(setFetchSuccess(false))
-
-    fetch(listOptions).then((response) => {
-      dispatch(setFetchSuccess(true))
-      setSavedCredentials(response.data)
-    })
-  }
 
   return (<div>
     <AppHeader text={'AirCMS'} />

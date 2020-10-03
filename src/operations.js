@@ -42,18 +42,29 @@ export function cutLessSignificantZero (month) {
     return month.length === 2 && month.substring(0,1) === '0' ? month.substring(1,2) : month
 }
 
-export function fetch (options) {
+export function fetch (endpointOptions, data) {
+    const options = Object.assign({}, {
+        method: endpointOptions.method,
+        url: endpointOptions.url,
+        data: data,
+        timeout: endpointOptions.timeout
+      })
+
     const defaultOpts = {
         hostname: window.location.hostname,
         url: '',
         method: 'GET',
+        timeout: 10 * 1000,
         headers: {
             'Content-Type': 'application/json'
         },
-        data: {}
+        data: {},
+        params: {}
     }
 
     const targetOpts = Object.assign({}, defaultOpts, options)
+
+    console.log('FETCH OPTIONS: ', targetOpts)
 
     return new Promise((resolve, reject) => {
         axios(targetOpts)
@@ -64,4 +75,44 @@ export function fetch (options) {
             reject(error.response)
         })
     }).catch()
+}
+
+export function fetchImage(endpointOptions, params) {
+    const options = Object.assign({}, {
+        method: endpointOptions.method,
+        url: endpointOptions.url,
+        params: params,
+        timeout: endpointOptions.timeout
+        // responseType: 'blob'
+    })
+
+    const defaultOpts = {
+        hostname: window.location.hostname,
+        url: '',
+        method: 'GET',
+        timeout: 10 * 1000,
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        data: {},
+        params: {}
+    }
+
+    const targetOpts = Object.assign({}, defaultOpts, options)
+
+    console.log('FETCH OPTIONS: ', targetOpts)
+
+    return new Promise((resolve, reject) => {
+        axios(targetOpts)
+        .then((response) => {
+            resolve(response)
+        })
+        .catch((error) => {
+            reject(error.response)
+        })
+    }).catch()
+}
+
+export function convertBase64Images(str) {
+    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
 }
