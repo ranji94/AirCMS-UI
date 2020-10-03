@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { TriggeredElement } from '../../components'
+import { TriggeredElement, NewsImages } from '../../components'
 import styles from './news-editor.scss'
 import TextField from '@material-ui/core/TextField'
 import CheckIcon from '@material-ui/icons/Check'
@@ -88,9 +88,7 @@ export const News = ({ newsId, selectNewsToDelete, children, images, date }) => 
             </TriggeredElement>
         </div>
         <div className={styles['news-item-images']}>
-            {images.map(i => {
-                return i + ', '
-            })}
+            <NewsImages {...{ images, newsId }}/>
         </div>
     </div>
     )

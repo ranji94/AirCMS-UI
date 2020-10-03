@@ -9,24 +9,16 @@ import {
     setNews } from '../../../redux/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetch } from '../../../operations'
+import { API } from '../../../constants'
 
 export const ConnectionPanel = () => {
     const selectedCredentials = useSelector(state => state.selectedFTPCredentials.selectedFTPCredentials)
     const dispatch = useDispatch()
 
     const connectFTP = () => {
-        const connectFTPOptions = Object.assign({}, {
-            method: 'POST',
-            url: 'api/ftp/connect',
-            data: selectedCredentials,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
         dispatch(setFetchSuccess(false))
 
-        fetch(connectFTPOptions).then((response) => {
+        fetch(API.CONNECT, selectedCredentials).then((response) => {
             dispatch(setFTPConnectionInfo(response.data))
             fetchNews()
         }).catch((error) => {
@@ -35,15 +27,7 @@ export const ConnectionPanel = () => {
     }
 
     const fetchNews = () => {
-        const newsOptions = Object.assign({}, {
-            method: 'GET',
-            url: 'api/ftp/download',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        fetch(newsOptions).then((response) => {
+        fetch(API.DOWNLOAD_NEWS).then((response) => {
             dispatch(setNews(response.data))
             dispatch(setFetchSuccess(true))
         }).catch((error) => {

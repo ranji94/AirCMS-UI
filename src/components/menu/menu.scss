@@ -6,6 +6,7 @@
 }
 
 .menu-bar-connection-info {
+    @include vertical-align;
     text-align: left;
     font-weight: bold;
     flex: 40%;
@@ -20,6 +21,7 @@
     padding: 10px 10px 10px 10px;
     text-align: right;
     display: flex;
+    user-select: none;
 }
 
 .menu-bar-page-title {
@@ -29,3 +31,13 @@
     text-align: center;
     flex: 20%;
 }
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}  
